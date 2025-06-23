@@ -46,11 +46,11 @@ scene.add(pointLight, ambientLight);
 
 // Helpers
 
-const lightHelper = new THREE.PointLightHelper(pointLight)
-const gridHelper = new THREE.GridHelper(200, 50);
-scene.add(lightHelper, gridHelper)
+//const lightHelper = new THREE.PointLightHelper(pointLight)
+//const gridHelper = new THREE.GridHelper(200, 50);
+//scene.add(lightHelper, gridHelper)
 
-const controls = new OrbitControls(camera, renderer.domElement);
+//const controls = new OrbitControls(camera, renderer.domElement);
 
 
 function addStar() {
@@ -107,7 +107,24 @@ moon.position.setX(-10);
 sigrid.position.z = -5;
 sigrid.position.x = 2;
 
+// Scroll Animation
 
+function moveCamera() {
+  const t = document.body.getBoundingClientRect().top;
+  moon.rotation.x += 0.05;
+  moon.rotation.y += 0.075;
+  moon.rotation.z += 0.05;
+
+  sigrid.rotation.y += 0.01;
+  sigrid.rotation.z += 0.01;
+
+  camera.position.z = t * -0.01;
+  camera.position.x = t * -0.0002;
+  camera.rotation.y = t * -0.0002;
+}
+
+document.body.onscroll = moveCamera;
+moveCamera();
 
 // Animation Loop 
 
@@ -117,6 +134,8 @@ function animate() {
   torus.rotation.x += 0.01;
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
+
+  moon.rotation.x += 0.005;
 
   // for å oppdatere forandringer gjort med med musa (trenger kode under helpers)
   // controls.update();
