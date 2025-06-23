@@ -38,8 +38,8 @@ scene.add(torus);
 
 // Lights
 
-const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(5, 5, 5);
+const pointLight = new THREE.PointLight(0xffffff, 1000);
+pointLight.position.set(15, 0, 5);
 
 const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight);
@@ -69,6 +69,45 @@ function addStar() {
 
 //antall stjerner
 Array(200).fill().forEach(addStar);
+
+// Background
+
+const spaceTexture = new THREE.TextureLoader().load('/photos/space.jpg');
+scene.background = spaceTexture;
+
+// Avatar
+
+const sigridTexture = new THREE.TextureLoader().load('/photos/profilbilde.jpeg');
+
+const sigrid = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: sigridTexture }));
+
+scene.add(sigrid);
+
+
+// Moon
+
+const moonTexture = new THREE.TextureLoader().load('/photos/moon.jpg');
+const normalTexture = new THREE.TextureLoader().load('/photos/normal.jpg');
+
+const moon = new THREE.Mesh(
+  // 3 = radius
+  new THREE.SphereGeometry(3, 32, 32),
+  //legger til tekstur til figuren
+  new THREE.MeshStandardMaterial({
+    map: moonTexture,
+    normalMap: normalTexture,
+  })
+);
+
+scene.add(moon);
+
+moon.position.z = 30;
+moon.position.setX(-10);
+
+sigrid.position.z = -5;
+sigrid.position.x = 2;
+
+
 
 // Animation Loop 
 
